@@ -1,0 +1,33 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller customtkinter pymupdf easyocr pillow numpy
+
+    - name: Build EXE
+      run: |
+        pyinstaller --onefile --windowed --add-data "logo_final.png;." voucher_processor.py
+
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/voucher_processor.exe
+        tag_name: v1.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
