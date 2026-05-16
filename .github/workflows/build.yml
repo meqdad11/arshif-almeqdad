@@ -22,7 +22,7 @@ jobs:
 
     - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed --icon=icon.ico --add-data "logo_final.png;." --collect-all customtkinter voucher_processor.py
+    pyinstaller --onefile --windowed --icon=icon.ico --add-data "logo_final.png;." --collect-all customtkinter --collect-all easyocr --collect-all torch voucher_processor.py
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
