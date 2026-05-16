@@ -14,13 +14,17 @@ jobs:
     - name: Install dependencies
       run: |
         pip install pyinstaller customtkinter pymupdf easyocr pillow numpy
+    - name: Create torch hook
+      run: |
+        echo "from PyInstaller.utils.hooks import collect_all" > hook-torch.py
+        echo "datas, binaries, hiddenimports = collect_all('torch')" >> hook-torch.py
     - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed --icon=icon.ico --add-data "logo_final.png;." --collect-all customtkinter --collect-all easyocr --collect-all torch voucher_processor.py
+        pyinstaller --onefile --windowed --icon=icon.ico --add-data "logo_final.png;." --collect-all customtkinter --collect-all easyocr --additional-hooks-dir=. voucher_processor.py
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
         files: dist/voucher_processor.exe
-        tag_name: v1.3.2
+        tag_name: v1.3.3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
