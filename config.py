@@ -12,7 +12,7 @@ ICON_FILE     = os.path.join(BASE_DIR, "icon.ico")
 
 # ==================== الإصدار ====================
 
-CURRENT_VERSION = "1.4.1"
+CURRENT_VERSION = "1.4.2"
 VERSION_URL     = "https://raw.githubusercontent.com/meqdad11/arshif-almeqdad/main/version.json"
 DOWNLOAD_URL    = "https://github.com/meqdad11/arshif-almeqdad/releases/latest/download/voucher_processor.exe"
 
